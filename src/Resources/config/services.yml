@@ -7,3 +7,8 @@ services:
     Shopsys\FrontendApiBundle\:
         resource: '../../**/*{Resolver}.php'
 
+    shopsys.frontend_api.route_loader:
+        public: true
+        class: 'Shopsys\FrontendApiBundle\Routing\FrontendApiRouteLoader'
+        arguments:
+            $environment: '%kernel.environment%'
