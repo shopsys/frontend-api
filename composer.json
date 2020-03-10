@@ -25,14 +25,15 @@
             "Tests\\FrontendApiBundle\\": "tests/"
         }
     },
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.2",
         "overblog/graphql-bundle": "^0.12",
         "overblog/graphiql-bundle": "^0.1",
-        "shopsys/form-types-bundle": "9.0.x-dev",
-        "shopsys/framework": "9.0.x-dev",
-        "shopsys/migrations": "9.0.x-dev",
-        "shopsys/plugin-interface": "9.0.x-dev",
+        "shopsys/form-types-bundle": "dev-tp-symfony4 as dev-master",
+        "shopsys/framework": "dev-tp-symfony4 as dev-master",
+        "shopsys/migrations": "dev-tp-symfony4 as dev-master",
+        "shopsys/plugin-interface": "dev-tp-symfony4 as dev-master",
         "symfony/config": "^4.4",
         "symfony/dependency-injection": "^4.4",
         "symfony/http-foundation": "^4.4",
@@ -41,7 +42,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0",
-        "shopsys/coding-standards": "9.0.x-dev"
+        "shopsys/coding-standards": "dev-tp-symfony4 as dev-master"
     },
     "extra": {
         "branch-alias": {
