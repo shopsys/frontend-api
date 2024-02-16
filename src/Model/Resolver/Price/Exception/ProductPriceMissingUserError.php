@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\FrontendApiBundle\Model\Resolver\Products\ProductList\Exception;
+namespace Shopsys\FrontendApiBundle\Model\Resolver\Price\Exception;
 
 use Overblog\GraphQLBundle\Error\UserError;
 use Shopsys\FrontendApiBundle\Model\Error\UserErrorWithCodeInterface;
 
-class CustomerUserNotLoggedUserError extends UserError implements UserErrorWithCodeInterface
+class ProductPriceMissingUserError extends UserError implements UserErrorWithCodeInterface
 {
-    protected const CODE = 'customer-user-not-logged';
+    protected const CODE = 'product-price-missing';
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getUserErrorCode(): string
     {
