@@ -178,6 +178,7 @@ class OrderRepository
             ->andWhere('o.customer = :customer')
             ->setParameter('customer', $customer)
             ->orderBy('o.createdAt', 'DESC')
+            ->addOrderBy('o.id', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
 
