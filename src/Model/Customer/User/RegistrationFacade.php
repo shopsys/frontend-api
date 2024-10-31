@@ -7,6 +7,7 @@ namespace Shopsys\FrontendApiBundle\Model\Customer\User;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
+use Shopsys\FrameworkBundle\Model\Customer\Exception\BillingAddressCompanyNumberIsNotUniqueException;
 use Shopsys\FrameworkBundle\Model\Customer\Exception\DuplicateEmailException;
 use Shopsys\FrameworkBundle\Model\Customer\User\CustomerUser;
 use Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserFacade;
@@ -15,6 +16,7 @@ use Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserUpdateDataFactory as
 use Shopsys\FrameworkBundle\Model\Newsletter\NewsletterFacade;
 use Shopsys\FrameworkBundle\Model\Order\Exception\OrderNotFoundException;
 use Shopsys\FrameworkBundle\Model\Order\OrderFacade;
+use Shopsys\FrontendApiBundle\Model\Customer\Exception\CompanyAlreadyRegisteredUserError;
 use Shopsys\FrontendApiBundle\Model\Order\Exception\RegisterByOrderIsNotPossibleUserError;
 
 class RegistrationFacade
@@ -85,13 +87,17 @@ class RegistrationFacade
             throw new RegisterByOrderIsNotPossibleUserError('Registration for a established order is possible only within an hour of establishment of an order.');
         }
 
-        $customerUserUpdateData = $this->frameworkCustomerUserUpdateDataFactory->createFromOrder($order, $password);
-        $customerUser = $this->customerUserFacade->create($customerUserUpdateData);
+        try {
+            $customerUserUpdateData = $this->frameworkCustomerUserUpdateDataFactory->createFromOrder($order, $password);
+            $customerUser = $this->customerUserFacade->create($customerUserUpdateData);
 
-        $order->setCustomerUser($customerUser);
-        $this->em->flush();
+            $order->setCustomerUser($customerUser);
+            $this->em->flush();
 
-        return $customerUser;
+            return $customerUser;
+        } catch (BillingAddressCompanyNumberIsNotUniqueException) {
+            throw new CompanyAlreadyRegisteredUserError('Company is already registered.');
+        }
     }
 
     /**
