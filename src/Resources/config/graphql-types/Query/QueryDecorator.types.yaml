@@ -327,3 +327,43 @@ QueryDecorator:
                     urlSlug:
                         type: "String"
                 description: "Returns a flag by uuid or url slug"
+            isCustomerUserRegistered:
+                type: Boolean!
+                args:
+                    email:
+                        type: String!
+                        validation:
+                            -   NotBlank:
+                                    message: "Please enter valid email"
+                            -   Email:
+                                    message: "Please enter valid email"
+                            -   Length:
+                                    max: 255
+                                    maxMessage: "Email cannot be longer than {{ limit }} characters"
+                resolve: "@=query('isCustomerUserRegisteredQuery', args['email'])"
+                description: "Check if email is registered"
+            couldBeCustomerRegisteredQuery:
+                type: Boolean!
+                args:
+                    email:
+                        type: String!
+                        validation:
+                            -   NotBlank:
+                                    message: "Please enter valid email"
+                            -   Email:
+                                    message: "Please enter valid email"
+                            -   Length:
+                                    max: 255
+                                    maxMessage: "Email cannot be longer than {{ limit }} characters"
+                    companyNumber:
+                        type: String
+                        defaultValue: null
+                        validation:
+                            -   Length:
+                                    max: 50
+                                    maxMessage: "Identification number cannot be longer than {{ limit }} characters"
+                            -   Regex:
+                                    pattern: '/^[0-9]+$/'
+                                    message: "Please fill in numbers only"
+                resolve: "@=query('couldBeCustomerRegisteredQuery', args['email'], args['companyNumber'])"
+                description: "Check if customer can be registered with provided data"
