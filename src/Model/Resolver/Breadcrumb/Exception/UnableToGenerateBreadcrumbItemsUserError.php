@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\FrontendApiBundle\Model\Resolver\Image\Exception;
+namespace Shopsys\FrontendApiBundle\Model\Resolver\Breadcrumb\Exception;
 
 use Overblog\GraphQLBundle\Error\UserError;
 use Shopsys\FrontendApiBundle\Model\Error\UserErrorWithCodeInterface;
 
-class ImageTypeInvalidUserError extends UserError implements UserErrorWithCodeInterface
+class UnableToGenerateBreadcrumbItemsUserError extends UserError implements UserErrorWithCodeInterface
 {
-    protected const CODE = 'image-type-invalid';
+    protected const string CODE = 'unable-to-generate-breadcrumb-items';
 
     /**
      * {@inheritdoc}

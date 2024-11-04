@@ -15,20 +15,22 @@ QueryDecorator:
                 resolve: "@=query('categoriesQuery')"
                 description: "Returns complete list of categories"
             categoriesSearch:
-                type: "CategoryConnection"
+                type: "CategoryConnection!"
                 argsBuilder: "Relay::Connection"
                 resolve: "@=query('categoriesSearchQuery', args)"
+                complexity: "@=dynamicPaginationComplexity(args)"
                 args:
                     searchInput:
                         type: "SearchInput!"
                 description: "Returns list of searched categories that can be paginated using `first`, `last`, `before` and `after` keywords"
             products:
-                type: "ProductConnection"
+                type: "ProductConnection!"
                 argsBuilder:
                     builder: "ProductPaginatorArgumentsBuilder"
                     config:
                         orderingModeType: 'ProductOrderingModeEnum'
-                resolve: "@=query('productsQuery', args)"
+                resolve: "@=query('productsWithOverlyingEntityQuery', args, info)"
+                complexity: "@=dynamicPaginationComplexity(args)"
                 description: "Returns list of ordered products that can be paginated using `first`, `last`, `before` and `after` keywords"
             product:
                 type: 'Product'
@@ -59,12 +61,16 @@ QueryDecorator:
                 type: 'Variant'
             category:
                 type: 'Category'
-                resolve: "@=query('categoryByUuidOrUrlSlugQuery', args['uuid'], args['urlSlug'])"
+                resolve: "@=query('categoryOrSeoMixByUuidOrUrlSlugQuery', info, args['uuid'], args['urlSlug'])"
                 args:
                     uuid:
                         type: "Uuid"
                     urlSlug:
                         type: "String"
+                    orderingMode:
+                        type: "ProductOrderingModeEnum"
+                    filter:
+                        type: "ProductFilter"
                 description: "Returns category filtered using UUID or URL slug"
             payments:
                 type: '[Payment!]!'
@@ -308,3 +314,16 @@ QueryDecorator:
                 resolve: "@=query('complaintsQuery', args)"
                 complexity: "@=dynamicPaginationComplexity(args)"
                 description: "Returns list of complaints that can be paginated using `first`, `last`, `before` and `after` keywords"
+            flags:
+                type: '[Flag!]'
+                resolve: "@=query('flagsQuery')"
+                description: "Returns a complete list of the flags"
+            flag:
+                type: 'Flag'
+                resolve: "@=query('flagByUuidOrUrlSlugQuery', args['uuid'], args['urlSlug'])"
+                args:
+                    uuid:
+                        type: "Uuid"
+                    urlSlug:
+                        type: "String"
+                description: "Returns a flag by uuid or url slug"
