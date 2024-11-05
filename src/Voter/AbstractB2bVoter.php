@@ -22,8 +22,9 @@ abstract class AbstractB2bVoter extends Voter
     /**
      * @param string $attribute
      * @param array $subject
+     * @return bool
      */
-    abstract protected function supports(string $attribute, $subject);
+    abstract protected function supports(string $attribute, $subject): bool;
 
     /**
      * @param string $attribute
@@ -36,8 +37,9 @@ abstract class AbstractB2bVoter extends Voter
      * @param string $attribute
      * @param mixed $subject
      * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
+     * @return bool
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         if ($this->domain->isB2b() === false) {
             return false;

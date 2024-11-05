@@ -29,8 +29,9 @@ class CompanyOwnerVoter extends AbstractB2bVoter
     /**
      * @param string $attribute
      * @param mixed $subject
+     * @return bool
      */
-    protected function supports(string $attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         return $attribute === 'is_company_owner_voter';
     }
