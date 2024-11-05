@@ -32,11 +32,11 @@
         "shopsys/framework": "16.0.x-dev",
         "shopsys/migrations": "16.0.x-dev",
         "shopsys/plugin-interface": "16.0.x-dev",
-        "symfony/config": "^5.4",
-        "symfony/dependency-injection": "^5.4",
-        "symfony/http-foundation": "^5.4",
-        "symfony/http-kernel": "^5.4",
-        "symfony/routing": "^5.4",
+        "symfony/config": "^6.4",
+        "symfony/dependency-injection": "^6.4",
+        "symfony/http-foundation": "^6.4",
+        "symfony/http-kernel": "^6.4",
+        "symfony/routing": "^6.4",
         "webonyx/graphql-php": "^15.6"
     },
     "require-dev": {
