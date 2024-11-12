@@ -14,9 +14,8 @@ class DeliveryAddressUuid extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::LOGIN_REQUIRED_ERROR => 'LOGIN_REQUIRED_ERROR',
     ];
 

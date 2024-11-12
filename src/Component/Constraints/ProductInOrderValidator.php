@@ -26,7 +26,7 @@ class ProductInOrderValidator extends ConstraintValidator
      * @param mixed $value
      * @param \Shopsys\FrontendApiBundle\Component\Constraints\ProductInOrder $constraint
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof ProductInOrder) {
             throw new UnexpectedTypeException($constraint, ProductInOrder::class);

@@ -24,7 +24,7 @@ class CustomerUserRoleGroupValidator extends ConstraintValidator
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof CustomerUserRoleGroup) {
             throw new UnexpectedTypeException($constraint, CustomerUserRoleGroup::class);

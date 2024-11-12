@@ -38,9 +38,8 @@ class PromoCode extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::INVALID_ERROR => 'INVALID_ERROR',
         self::NOT_YET_VALID_ERROR => 'NOT_YET_VALID_ERROR',
         self::NO_LONGER_VALID_ERROR => 'NO_LONGER_VALID_ERROR',

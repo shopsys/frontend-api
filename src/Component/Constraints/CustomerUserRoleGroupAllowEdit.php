@@ -20,9 +20,8 @@ class CustomerUserRoleGroupAllowEdit extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::CUSTOMER_USER_ROLE_GROUP_CANNOT_BE_CHANGED => 'CUSTOMER_USER_ROLE_GROUP_CANNOT_BE_CHANGED',
         self::LAST_CUSTOMER_USER_ROLE_GROUP_CANNOT_BE_CHANGED => 'LAST_CUSTOMER_USER_ROLE_GROUP_CANNOT_BE_CHANGED',
     ];

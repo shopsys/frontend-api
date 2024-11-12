@@ -29,9 +29,8 @@ class TransportInOrder extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::TRANSPORT_NOT_SET_ERROR => 'TRANSPORT_NOT_SET_ERROR',
         self::TRANSPORT_UNAVAILABLE_ERROR => 'TRANSPORT_UNAVAILABLE_ERROR',
         self::CHANGED_TRANSPORT_PRICE_ERROR => 'CHANGED_TRANSPORT_PRICE_ERROR',
