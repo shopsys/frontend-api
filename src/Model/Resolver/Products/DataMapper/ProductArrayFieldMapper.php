@@ -279,7 +279,7 @@ class ProductArrayFieldMapper
      */
     public function getNameSuffix(array $data): ?string
     {
-        return $data['name_sufix'];
+        return $data['name_suffix'];
     }
 
     /**
@@ -293,7 +293,7 @@ class ProductArrayFieldMapper
             . ' '
             . $data['name']
             . ' '
-            . $data['name_sufix'],
+            . $data['name_suffix'],
         );
     }
 }

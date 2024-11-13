@@ -248,7 +248,7 @@ class ProductEntityFieldMapper
      */
     public function getNameSuffix(Product $product): ?string
     {
-        return $product->getNameSufix($this->domain->getLocale());
+        return $product->getNameSuffix($this->domain->getLocale());
     }
 
     /**
