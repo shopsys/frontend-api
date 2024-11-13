@@ -241,4 +241,31 @@ class ProductEntityFieldMapper
     {
         return $product->getProductType();
     }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string|null
+     */
+    public function getNameSuffix(Product $product): ?string
+    {
+        return $product->getNameSufix($this->domain->getLocale());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string|null
+     */
+    public function getNamePrefix(Product $product): ?string
+    {
+        return $product->getNamePrefix($this->domain->getLocale());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string
+     */
+    public function getFullName(Product $product): string
+    {
+        return $product->getFullName($this->domain->getLocale());
+    }
 }

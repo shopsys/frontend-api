@@ -263,4 +263,37 @@ class ProductArrayFieldMapper
     {
         return $data['product_type'];
     }
+
+    /**
+     * @param array $data
+     * @return string|null
+     */
+    public function getNamePrefix(array $data): ?string
+    {
+        return $data['name_prefix'];
+    }
+
+    /**
+     * @param array $data
+     * @return string|null
+     */
+    public function getNameSuffix(array $data): ?string
+    {
+        return $data['name_sufix'];
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function getFullname(array $data): string
+    {
+        return trim(
+            $data['name_prefix']
+            . ' '
+            . $data['name']
+            . ' '
+            . $data['name_sufix'],
+        );
+    }
 }
