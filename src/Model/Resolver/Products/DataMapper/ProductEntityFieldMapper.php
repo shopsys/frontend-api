@@ -268,4 +268,13 @@ class ProductEntityFieldMapper
     {
         return $product->getFullName($this->domain->getLocale());
     }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return int
+     */
+    public function getStockQuantity(Product $product): int
+    {
+        return $this->productAvailabilityFacade->getGroupedStockQuantityByProductAndDomainId($product, $this->domain->getId());
+    }
 }
