@@ -271,10 +271,47 @@ class ProductEntityFieldMapper
 
     /**
      * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
-     * @return int
+     * @return int|null
      */
-    public function getStockQuantity(Product $product): int
+    public function getStockQuantity(Product $product): ?int
     {
         return $this->productAvailabilityFacade->getGroupedStockQuantityByProductAndDomainId($product, $this->domain->getId());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return array
+     */
+    public function getStoreAvailabilities(Product $product): array
+    {
+        $storeAvailabilitiesInformation = $this->productAvailabilityFacade->getProductStoresAvailabilitiesInformationByDomainIdIndexedByStoreId(
+            $product,
+            $this->domain->getId(),
+        );
+
+        $result = [];
+
+        foreach ($storeAvailabilitiesInformation as $storeAvailabilityInformation) {
+            $result[] = [
+                'store_name' => $storeAvailabilityInformation->getStoreName(),
+                'store_id' => $storeAvailabilityInformation->getStoreId(),
+                'availability_information' => $storeAvailabilityInformation->getAvailabilityInformation(),
+                'availability_status' => $storeAvailabilityInformation->getAvailabilityStatus(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return int|null
+     */
+    public function getAvailableStoresCount(Product $product): ?int
+    {
+        return $this->productAvailabilityFacade->getAvailableStoresCount(
+            $product,
+            $this->domain->getId(),
+        );
     }
 }

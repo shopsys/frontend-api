@@ -296,4 +296,22 @@ class ProductArrayFieldMapper
             . $data['name_suffix'],
         );
     }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function getStoreAvailabilities(array $data): array
+    {
+        return $data['store_availabilities_information'];
+    }
+
+    /**
+     * @param array $data
+     * @return int|null
+     */
+    public function getAvailableStoresCount(array $data): ?int
+    {
+        return $data['available_stores_count'];
+    }
 }

@@ -5,5 +5,8 @@ AvailabilityDecorator:
         description: "Represents an availability"
         fields:
             name:
-                type: "String"
+                type: "String!"
                 description: "Localized availability name (domain dependent)"
+            status:
+                type: "AvailabilityStatusEnum!"
+                description: "Availability status in a format suitable for usage in the code"

@@ -87,3 +87,9 @@ ProductDecorator:
                 type: "Boolean!"
             productType:
                 type: "ProductTypeEnum!"
+            availableStoresCount:
+                type: "Int"
+                description: "Number of the stores where the product is available (null for main variants)"
+            storeAvailabilities:
+                type: "[StoreAvailability!]!"
+                description: "List of availabilities in individual stores (empty for main variants)"
