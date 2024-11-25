@@ -29,7 +29,7 @@ class PaymentInOrderValidator extends ConstraintValidator
      * @param mixed $value
      * @param \Shopsys\FrontendApiBundle\Component\Constraints\PaymentInOrder $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof PaymentInOrder) {
             throw new UnexpectedTypeException($constraint, PaymentInOrder::class);

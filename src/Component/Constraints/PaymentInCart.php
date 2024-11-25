@@ -17,9 +17,8 @@ class PaymentInCart extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::UNAVAILABLE_PAYMENT_ERROR => 'UNAVAILABLE_PAYMENT_ERROR',
         self::INVALID_PAYMENT_TRANSPORT_COMBINATION_ERROR => 'INVALID_PAYMENT_TRANSPORT_COMBINATION_ERROR',
     ];

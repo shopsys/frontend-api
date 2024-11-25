@@ -26,9 +26,8 @@ class TransportInCart extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::UNAVAILABLE_TRANSPORT_ERROR => 'UNAVAILABLE_TRANSPORT_ERROR',
         self::UNAVAILABLE_PICKUP_PLACE_ERROR => 'UNAVAILABLE_PICKUP_PLACE_ERROR',
         self::WEIGHT_LIMIT_EXCEEDED_ERROR => 'WEIGHT_LIMIT_EXCEEDED_ERROR',

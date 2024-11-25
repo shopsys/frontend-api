@@ -20,9 +20,8 @@ class PaymentInOrder extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::PAYMENT_NOT_SET_ERROR => 'PAYMENT_NOT_SET_ERROR',
         self::UNAVAILABLE_PAYMENT_ERROR => 'UNAVAILABLE_PAYMENT_ERROR',
         self::CHANGED_PAYMENT_PRICE_ERROR => 'CHANGED_PAYMENT_PRICE_ERROR',

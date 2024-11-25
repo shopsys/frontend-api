@@ -30,7 +30,7 @@ class UniqueBillingAddressApiValidator extends ConstraintValidator
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueBillingAddressApi) {
             throw new UnexpectedTypeException($constraint, UniqueBillingAddressApi::class);

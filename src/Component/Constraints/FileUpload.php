@@ -14,10 +14,8 @@ class FileUpload extends Constraint
 
     /**
      * @var array<string, string>
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @phpcsSuppress SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnlySniff.ReferenceViaFullyQualifiedName
      */
-    protected static $errorNames = [
+    protected const array ERROR_NAMES = [
         self::TOO_BIG_ERROR => 'TOO_BIG_ERROR',
         self::UPLOAD_ERROR => 'UPLOAD_ERROR',
         self::MIMETYPE_ERROR => 'MIMETYPE_ERROR',

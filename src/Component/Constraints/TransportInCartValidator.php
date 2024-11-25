@@ -42,7 +42,7 @@ class TransportInCartValidator extends ConstraintValidator
      * @param mixed $value
      * @param \Shopsys\FrontendApiBundle\Component\Constraints\TransportInCart $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof TransportInCart) {
             throw new UnexpectedTypeException($constraint, TransportInCart::class);
