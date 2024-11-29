@@ -9,6 +9,7 @@ use GraphQL\Language\AST\OperationDefinitionNode;
 use GraphQL\Language\Parser;
 use Override;
 use Shopsys\FrameworkBundle\Component\HttpFoundation\TransactionalMasterRequestConditionProviderInterface;
+use Shopsys\FrontendApiBundle\Model\Error\InvalidArgumentUserError;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class TransactionalMasterRequestConditionProvider implements TransactionalMasterRequestConditionProviderInterface
@@ -43,6 +44,10 @@ class TransactionalMasterRequestConditionProvider implements TransactionalMaster
         }
 
         $source = json_decode($requestContent, true);
+
+        if (!is_array($source)) {
+            throw new InvalidArgumentUserError('Request content is not a valid JSON.');
+        }
 
         if (!array_key_exists(static::QUERY_TYPE, $source)) {
             return false;
