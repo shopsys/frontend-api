@@ -241,4 +241,77 @@ class ProductEntityFieldMapper
     {
         return $product->getProductType();
     }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string|null
+     */
+    public function getNameSuffix(Product $product): ?string
+    {
+        return $product->getNameSuffix($this->domain->getLocale());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string|null
+     */
+    public function getNamePrefix(Product $product): ?string
+    {
+        return $product->getNamePrefix($this->domain->getLocale());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return string
+     */
+    public function getFullName(Product $product): string
+    {
+        return $product->getFullName($this->domain->getLocale());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return int|null
+     */
+    public function getStockQuantity(Product $product): ?int
+    {
+        return $this->productAvailabilityFacade->getGroupedStockQuantityByProductAndDomainId($product, $this->domain->getId());
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return array
+     */
+    public function getStoreAvailabilities(Product $product): array
+    {
+        $storeAvailabilitiesInformation = $this->productAvailabilityFacade->getProductStoresAvailabilitiesInformationByDomainIdIndexedByStoreId(
+            $product,
+            $this->domain->getId(),
+        );
+
+        $result = [];
+
+        foreach ($storeAvailabilitiesInformation as $storeAvailabilityInformation) {
+            $result[] = [
+                'store_name' => $storeAvailabilityInformation->getStoreName(),
+                'store_id' => $storeAvailabilityInformation->getStoreId(),
+                'availability_information' => $storeAvailabilityInformation->getAvailabilityInformation(),
+                'availability_status' => $storeAvailabilityInformation->getAvailabilityStatus(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param \Shopsys\FrameworkBundle\Model\Product\Product $product
+     * @return int|null
+     */
+    public function getAvailableStoresCount(Product $product): ?int
+    {
+        return $this->productAvailabilityFacade->getAvailableStoresCount(
+            $product,
+            $this->domain->getId(),
+        );
+    }
 }

@@ -117,7 +117,6 @@ class CartMutation extends AbstractMutation
         }
 
         $notAddedProducts = [];
-        $addProductResults = [];
 
         foreach ($order->getProductItems() as $orderItem) {
             if ($orderItem->getProduct() === null) {
@@ -125,7 +124,7 @@ class CartMutation extends AbstractMutation
             }
 
             try {
-                $addProductResults[] = $this->cartApiFacade->addProductByUuidToCart($orderItem->getProduct()->getUuid(), $orderItem->getQuantity(), false, $cart);
+                $this->cartApiFacade->addProductByUuidToCart($orderItem->getProduct()->getUuid(), $orderItem->getQuantity(), false, $cart);
             } catch (InvalidCartItemUserError) {
                 $notAddedProducts[] = $orderItem->getProduct();
             }
@@ -133,12 +132,6 @@ class CartMutation extends AbstractMutation
 
         $cartWithModificationsResult = $this->cartWatcherFacade->getCheckedCartWithModifications($cart);
         $cartWithModificationsResult->addProductsNotAddedByMultipleAddition($notAddedProducts);
-
-        foreach ($addProductResults as $addProductResult) {
-            if ($addProductResult->getNotOnStockQuantity() > 0) {
-                $cartWithModificationsResult->addCartItemWithChangedQuantity($addProductResult->getCartItem());
-            }
-        }
 
         return $cartWithModificationsResult;
     }

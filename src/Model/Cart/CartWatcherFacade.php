@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Shopsys\FrontendApiBundle\Model\Cart;
 
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Shopsys\FrameworkBundle\Component\Domain\Domain;
 use Shopsys\FrameworkBundle\Model\Cart\Cart;
@@ -51,7 +50,6 @@ class CartWatcherFacade
 
         $this->checkRemovedProductsItems($cart);
         $this->checkNotListableItems($cart);
-        $this->checkUnavailableStockQuantityItems($cart);
         $this->checkModifiedPrices($cart);
         $this->checkPromoCodeValidity($cart);
 
@@ -99,39 +97,6 @@ class CartWatcherFacade
             $this->em->remove($cartItem);
 
             $this->cartWithModificationsResult->addNoLongerListableCartItem($cartItem);
-        }
-    }
-
-    /**
-     * @param \Shopsys\FrameworkBundle\Model\Cart\Cart $cart
-     */
-    protected function checkUnavailableStockQuantityItems(Cart $cart): void
-    {
-        foreach ($cart->getItems() as $cartItem) {
-            $product = $cartItem->getProduct();
-
-            if ($product === null) {
-                continue;
-            }
-
-            $maximumOrderQuantity = $this->productAvailabilityFacade->getGroupedStockQuantityByProductAndDomainId($product, $this->domain->getId());
-
-            if ($maximumOrderQuantity === 0) {
-                $cart->removeItemById($cartItem->getId());
-                $this->cartWithModificationsResult->addNoLongerAvailableCartItemDueToQuantity($cartItem);
-
-                continue;
-            }
-
-            if ($cartItem->getQuantity() <= $maximumOrderQuantity) {
-                continue;
-            }
-
-            $cartItem->changeQuantity($maximumOrderQuantity);
-            $cartItem->changeAddedAt(new DateTime());
-            $this->em->persist($cartItem);
-
-            $this->cartWithModificationsResult->addCartItemWithChangedQuantity($cartItem);
         }
     }
 

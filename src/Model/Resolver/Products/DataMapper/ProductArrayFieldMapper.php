@@ -263,4 +263,55 @@ class ProductArrayFieldMapper
     {
         return $data['product_type'];
     }
+
+    /**
+     * @param array $data
+     * @return string|null
+     */
+    public function getNamePrefix(array $data): ?string
+    {
+        return $data['name_prefix'];
+    }
+
+    /**
+     * @param array $data
+     * @return string|null
+     */
+    public function getNameSuffix(array $data): ?string
+    {
+        return $data['name_suffix'];
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function getFullname(array $data): string
+    {
+        return trim(
+            $data['name_prefix']
+            . ' '
+            . $data['name']
+            . ' '
+            . $data['name_suffix'],
+        );
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function getStoreAvailabilities(array $data): array
+    {
+        return $data['store_availabilities_information'];
+    }
+
+    /**
+     * @param array $data
+     * @return int|null
+     */
+    public function getAvailableStoresCount(array $data): ?int
+    {
+        return $data['available_stores_count'];
+    }
 }
