@@ -229,3 +229,11 @@ MutationDecorator:
                         type: ComplaintInput!
                         validation: cascade
                 resolve: "@=mutation('createComplaintMutation', args, validator)"
+            CreateWatchdog:
+                type: Boolean!
+                description: "Create a new watchdog or update validity of the current one"
+                args:
+                    input:
+                        type: CreateWatchdogInput!
+                        validation: cascade
+                resolve: "@=mutation('createWatchdogMutation', args)"
