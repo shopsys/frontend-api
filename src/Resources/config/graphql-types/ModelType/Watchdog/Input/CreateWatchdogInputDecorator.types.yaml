@@ -6,6 +6,8 @@ CreateWatchdogInputDecorator:
             productUuid:
                 type: "Uuid!"
                 description: "Product UUID"
+                validation:
+                    -   Shopsys\FrontendApiBundle\Component\Constraints\Watchdog: ~
             email:
                 type: "String!"
                 description: "The customer's email address"
