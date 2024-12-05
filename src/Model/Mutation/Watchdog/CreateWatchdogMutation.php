@@ -39,14 +39,14 @@ class CreateWatchdogMutation extends AbstractMutation
         try {
             $watchdogData = $this->createWatchdogDataFromArgument($argument);
 
-            $watchdog = $this->watchdogFacade->findByProductUuidEmailAndDomainId(
+            $watchdog = $this->watchdogFacade->findByProductEmailAndDomainId(
                 $watchdogData->product,
                 $watchdogData->email,
                 $watchdogData->domainId,
             );
 
             if ($watchdog !== null) {
-                $this->watchdogFacade->updateValidity($watchdog->getId());
+                $this->watchdogFacade->updateValidity($watchdog);
             } else {
                 $this->watchdogFacade->create($watchdogData);
             }
