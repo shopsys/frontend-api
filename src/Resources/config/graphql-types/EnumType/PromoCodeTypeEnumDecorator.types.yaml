@@ -1,0 +1,15 @@
+PromoCodeTypeEnumDecorator:
+    type: enum
+    decorator: true
+    config:
+        description: "One of possible promo code types"
+        values:
+            percent:
+                value: '@=constant("Shopsys\\FrameworkBundle\\Model\\Order\\PromoCode\\PromoCodeTypeEnum::DISCOUNT_TYPE_PERCENT")'
+                description: "Discount type percent"
+            nominal:
+                value: '@=constant("Shopsys\\FrameworkBundle\\Model\\Order\\PromoCode\\PromoCodeTypeEnum::DISCOUNT_TYPE_NOMINAL")'
+                description: "Discount type nominal"
+            free_transport_payment:
+                value: '@=constant("Shopsys\\FrameworkBundle\\Model\\Order\\PromoCode\\PromoCodeTypeEnum::DISCOUNT_TYPE_FREE_TRANSPORT_PAYMENT")'
+                description: "Discount type free transport and payment"
