@@ -13,6 +13,7 @@ use Shopsys\FrameworkBundle\Model\Payment\Service\PaymentServiceFacade;
 use Shopsys\FrontendApiBundle\Model\Mutation\AbstractMutation;
 use Shopsys\FrontendApiBundle\Model\Mutation\Payment\Exception\MaxTransactionCountReachedUserError;
 use Shopsys\FrontendApiBundle\Model\Mutation\Payment\Exception\OrderAlreadyPaidUserError;
+use Shopsys\FrontendApiBundle\Model\Mutation\Payment\Exception\OrderWaitingForProcessPaymentUserError;
 use Shopsys\FrontendApiBundle\Model\Order\OrderApiFacade;
 use Throwable;
 
@@ -41,6 +42,10 @@ class PaymentMutation extends AbstractMutation
 
         if ($order->isPaid()) {
             throw new OrderAlreadyPaidUserError('Order is already paid');
+        }
+
+        if ($order->hasPaymentInProcess()) {
+            throw new OrderWaitingForProcessPaymentUserError('Order is awaiting payment verification.');
         }
 
         if ($order->isMaxTransactionCountReached()) {
