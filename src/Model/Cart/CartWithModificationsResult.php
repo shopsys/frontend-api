@@ -270,15 +270,18 @@ class CartWithModificationsResult
     }
 
     /**
-     * @return string|null
+     * @return \Shopsys\FrontendApiBundle\Model\Cart\PromoCodeData|null
      */
-    public function getPromoCode(): ?string
+    public function getPromoCode(): ?PromoCodeData
     {
         if ($this->cart->getFirstAppliedPromoCode() === null) {
             return null;
         }
 
-        return $this->cart->getFirstAppliedPromoCode()->getCode();
+        return new PromoCodeData(
+            $this->cart->getFirstAppliedPromoCode()->getCode(),
+            $this->cart->getFirstAppliedPromoCode()->getDiscountType(),
+        );
     }
 
     /**

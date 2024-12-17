@@ -112,6 +112,7 @@ class PriceQuery extends AbstractQuery
                 $order->getCurrency(),
                 $order->getTotalProductsPrice(),
                 $order->getDomainId(),
+                $order->isFreeTransportAndPaymentApplied(),
             );
         }
 

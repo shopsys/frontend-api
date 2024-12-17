@@ -1,0 +1,11 @@
+PromoCodeDecorator:
+    type: object
+    decorator: true
+    config:
+        fields:
+            code:
+                type: "String!"
+                description: "Code of the promo code"
+            type:
+                type: "PromoCodeTypeEnum!"
+                description: "Type of the promo code"
