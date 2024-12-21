@@ -11,7 +11,7 @@ use Lcobucci\JWT\Encoding\ChainedFormatter;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Token\Builder;
-use Lcobucci\JWT\Token\Plain;
+use Lcobucci\JWT\UnencryptedToken;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopsys\FrameworkBundle\Component\Domain\Config\DomainConfig;
@@ -54,10 +54,13 @@ class TokenFacadeTest extends TestCase
      * @param string|null $issuedBy
      * @param \Lcobucci\JWT\Signer\Key\InMemory|null $privateKey
      * @param \DateTimeImmutable|null $expiresAt
-     * @return \Lcobucci\JWT\Token\Plain
+     * @return \Lcobucci\JWT\UnencryptedToken
      */
-    protected function createToken(?string $issuedBy, ?InMemory $privateKey, ?DateTimeImmutable $expiresAt): Plain
-    {
+    protected function createToken(
+        ?string $issuedBy,
+        ?InMemory $privateKey,
+        ?DateTimeImmutable $expiresAt,
+    ): UnencryptedToken {
         $builder = (new Builder(new JoseEncoder(), ChainedFormatter::default()))
             ->issuedBy('http://webserver:8080')
             ->permittedFor('http://webserver:8080')
@@ -73,11 +76,11 @@ class TokenFacadeTest extends TestCase
         }
 
         if ($issuedBy !== null) {
-            $builder->issuedBy($issuedBy);
+            $builder = $builder->issuedBy($issuedBy);
         }
 
         if ($expiresAt !== null) {
-            $builder->expiresAt($expiresAt);
+            $builder = $builder->expiresAt($expiresAt);
         }
 
         return $builder->getToken($signer, $privateKey);

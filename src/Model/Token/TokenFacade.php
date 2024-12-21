@@ -58,15 +58,12 @@ class TokenFacade
         string $deviceId,
         ?Administrator $administrator = null,
     ): string {
-        $tokenBuilder = $this->getTokenBuilderWithExpiration(static::ACCESS_TOKEN_EXPIRATION);
-        $tokenBuilder->withClaim(FrontendApiUser::CLAIM_DEVICE_ID, $deviceId);
-        $tokenBuilder->withClaim(
-            FrontendApiUser::CLAIM_ADMINISTRATOR_UUID,
-            $administrator?->getUuid(),
-        );
+        $tokenBuilder = $this->getTokenBuilderWithExpiration(static::ACCESS_TOKEN_EXPIRATION)
+            ->withClaim(FrontendApiUser::CLAIM_DEVICE_ID, $deviceId)
+            ->withClaim(FrontendApiUser::CLAIM_ADMINISTRATOR_UUID, $administrator?->getUuid());
 
         foreach (TokenCustomerUserTransformer::transform($customerUser) as $key => $value) {
-            $tokenBuilder->withClaim($key, $value);
+            $tokenBuilder = $tokenBuilder->withClaim($key, $value);
         }
 
         $jwtConfiguration = $this->jwtConfigurationProvider->getConfiguration();
@@ -87,10 +84,10 @@ class TokenFacade
         string $secretChain,
         string $deviceId,
     ): UnencryptedToken {
-        $tokenBuilder = $this->getTokenBuilderWithExpiration(static::REFRESH_TOKEN_EXPIRATION);
-        $tokenBuilder->withClaim(FrontendApiUser::CLAIM_UUID, $customerUser->getUuid());
-        $tokenBuilder->withClaim(FrontendApiUser::CLAIM_SECRET_CHAIN, $secretChain);
-        $tokenBuilder->withClaim(FrontendApiUser::CLAIM_DEVICE_ID, $deviceId);
+        $tokenBuilder = $this->getTokenBuilderWithExpiration(static::REFRESH_TOKEN_EXPIRATION)
+            ->withClaim(FrontendApiUser::CLAIM_UUID, $customerUser->getUuid())
+            ->withClaim(FrontendApiUser::CLAIM_SECRET_CHAIN, $secretChain)
+            ->withClaim(FrontendApiUser::CLAIM_DEVICE_ID, $deviceId);
 
         $jwtConfiguration = $this->jwtConfigurationProvider->getConfiguration();
 
