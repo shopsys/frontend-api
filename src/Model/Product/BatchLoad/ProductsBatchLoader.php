@@ -37,6 +37,15 @@ class ProductsBatchLoader
      * @param int[][] $productsIds
      * @return \GraphQL\Executor\Promise\Promise
      */
+    public function loadVisibleCountByIds(array $productsIds): Promise
+    {
+        return $this->promiseAdapter->all($this->productElasticsearchBatchProvider->getBatchedVisibleByProductIds($productsIds)[ProductElasticsearchBatchRepository::TOTALS_KEY]);
+    }
+
+    /**
+     * @param int[][] $productsIds
+     * @return \GraphQL\Executor\Promise\Promise
+     */
     public function loadVisibleAndSortedByIds(array $productsIds): Promise
     {
         $products = $this->productElasticsearchBatchProvider->getBatchedVisibleByProductIds($productsIds)[ProductElasticsearchBatchRepository::PRODUCTS_KEY];

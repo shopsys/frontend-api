@@ -27,7 +27,8 @@ class ProductArrayFieldMapper
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductFrontendLimitProvider $productFrontendLimitProvider
      * @param \Overblog\DataLoader\DataLoaderInterface $productsSellableByIdsBatchLoader
      * @param \Shopsys\FrameworkBundle\Model\Customer\User\CurrentCustomerUser $currentCustomerUser
-     * @param \Overblog\DataLoader\DataLoaderInterface $productsSellableCountByIdsBatchLoader
+     * @param \Overblog\DataLoader\DataLoaderInterface $productsVisibleByIdsBatchLoader
+     * @param \Overblog\DataLoader\DataLoaderInterface $productsVisibleCountByIdsBatchLoader
      */
     public function __construct(
         protected readonly CategoryFacade $categoryFacade,
@@ -38,7 +39,8 @@ class ProductArrayFieldMapper
         protected readonly ProductFrontendLimitProvider $productFrontendLimitProvider,
         protected readonly DataLoaderInterface $productsSellableByIdsBatchLoader,
         protected readonly CurrentCustomerUser $currentCustomerUser,
-        protected readonly DataLoaderInterface $productsSellableCountByIdsBatchLoader,
+        protected readonly DataLoaderInterface $productsVisibleByIdsBatchLoader,
+        protected readonly DataLoaderInterface $productsVisibleCountByIdsBatchLoader,
     ) {
     }
 
@@ -195,11 +197,11 @@ class ProductArrayFieldMapper
 
     /**
      * @param array $data
-     * @return array
+     * @return \GraphQL\Executor\Promise\Promise
      */
-    public function getVariants(array $data): array
+    public function getVariants(array $data): Promise
     {
-        return $this->productElasticsearchProvider->getSellableProductArrayByIds($data['variants']);
+        return $this->productsVisibleByIdsBatchLoader->load($data['variants']);
     }
 
     /**
@@ -208,7 +210,7 @@ class ProductArrayFieldMapper
      */
     public function getVariantsCount(array $data): Promise
     {
-        return $this->productsSellableCountByIdsBatchLoader->load($data['variants']);
+        return $this->productsVisibleCountByIdsBatchLoader->load($data['variants']);
     }
 
     /**

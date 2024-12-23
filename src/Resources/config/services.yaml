@@ -154,12 +154,14 @@ services:
     Shopsys\FrontendApiBundle\Model\Resolver\Products\DataMapper\ProductArrayFieldMapper:
         arguments:
             $productsSellableByIdsBatchLoader: '@products_sellable_by_ids_batch_loader'
-            $productsSellableCountByIdsBatchLoader: '@products_sellable_count_by_ids_batch_loader'
+            $productsVisibleByIdsBatchLoader: '@products_visible_by_ids_batch_loader'
+            $productsVisibleCountByIdsBatchLoader: '@products_visible_count_by_ids_batch_loader'
 
     Shopsys\FrontendApiBundle\Model\Resolver\Products\DataMapper\ProductEntityFieldMapper:
         arguments:
             $productsSellableByIdsBatchLoader: '@products_sellable_by_ids_batch_loader'
-            $productsSellableCountByIdsBatchLoader: '@products_sellable_count_by_ids_batch_loader'
+            $productsVisibleByIdsBatchLoader: '@products_visible_by_ids_batch_loader'
+            $productsVisibleCountByIdsBatchLoader: '@products_visible_count_by_ids_batch_loader'
 
     Shopsys\FrontendApiBundle\Model\Resolver\Products\ProductFilesQuery:
         arguments:

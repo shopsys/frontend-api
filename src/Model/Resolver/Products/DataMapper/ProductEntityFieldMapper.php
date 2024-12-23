@@ -31,7 +31,8 @@ class ProductEntityFieldMapper
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductFrontendLimitProvider $productFrontendLimitProvider
      * @param \Overblog\DataLoader\DataLoaderInterface $productsSellableByIdsBatchLoader
      * @param \Shopsys\FrameworkBundle\Model\Product\ProductVisibilityFacade $productVisibilityFacade
-     * @param \Overblog\DataLoader\DataLoaderInterface $productsSellableCountByIdsBatchLoader
+     * @param \Overblog\DataLoader\DataLoaderInterface $productsVisibleByIdsBatchLoader
+     * @param \Overblog\DataLoader\DataLoaderInterface $productsVisibleCountByIdsBatchLoader
      */
     public function __construct(
         protected readonly Domain $domain,
@@ -44,7 +45,8 @@ class ProductEntityFieldMapper
         protected readonly ProductFrontendLimitProvider $productFrontendLimitProvider,
         protected readonly DataLoaderInterface $productsSellableByIdsBatchLoader,
         protected readonly ProductVisibilityFacade $productVisibilityFacade,
-        protected readonly DataLoaderInterface $productsSellableCountByIdsBatchLoader,
+        protected readonly DataLoaderInterface $productsVisibleByIdsBatchLoader,
+        protected readonly DataLoaderInterface $productsVisibleCountByIdsBatchLoader,
     ) {
     }
 
@@ -210,7 +212,7 @@ class ProductEntityFieldMapper
     {
         $variantIds = array_map(static fn (Product $variant) => $variant->getId(), $product->getVariants());
 
-        return $this->productsSellableByIdsBatchLoader->load($variantIds);
+        return $this->productsVisibleByIdsBatchLoader->load($variantIds);
     }
 
     /**
@@ -221,7 +223,7 @@ class ProductEntityFieldMapper
     {
         $variantIds = array_map(static fn (Product $variant) => $variant->getId(), $product->getVariants());
 
-        return $this->productsSellableCountByIdsBatchLoader->load($variantIds);
+        return $this->productsVisibleCountByIdsBatchLoader->load($variantIds);
     }
 
     /**

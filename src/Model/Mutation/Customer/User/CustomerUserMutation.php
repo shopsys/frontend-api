@@ -16,6 +16,7 @@ use Shopsys\FrameworkBundle\Model\Customer\User\CustomerUserPasswordFacade;
 use Shopsys\FrameworkBundle\Model\Customer\User\FrontendCustomerUserProvider;
 use Shopsys\FrameworkBundle\Model\Customer\User\Role\CustomerUserRoleGroupFacade;
 use Shopsys\FrameworkBundle\Model\Product\List\ProductListFacade;
+use Shopsys\FrameworkBundle\Model\Watchdog\WatchdogFacade;
 use Shopsys\FrontendApiBundle\Model\Cart\MergeCartFacade;
 use Shopsys\FrontendApiBundle\Model\Customer\User\CustomerUserDataFactory;
 use Shopsys\FrontendApiBundle\Model\Customer\User\CustomerUserUpdateDataFactory;
@@ -63,6 +64,7 @@ class CustomerUserMutation extends BaseTokenMutation
      * @param \Shopsys\FrameworkBundle\Component\Domain\Domain $domain
      * @param \Shopsys\FrontendApiBundle\Model\Customer\User\LoginType\CustomerUserLoginTypeFacade $customerUserLoginTypeFacade
      * @param \Shopsys\FrontendApiBundle\Model\Customer\User\LoginType\CustomerUserLoginTypeDataFactory $customerUserLoginTypeDataFactory
+     * @param \Shopsys\FrameworkBundle\Model\Watchdog\WatchdogFacade $watchdogFacade
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -85,6 +87,7 @@ class CustomerUserMutation extends BaseTokenMutation
         protected readonly Domain $domain,
         protected readonly CustomerUserLoginTypeFacade $customerUserLoginTypeFacade,
         protected readonly CustomerUserLoginTypeDataFactory $customerUserLoginTypeDataFactory,
+        protected readonly WatchdogFacade $watchdogFacade,
     ) {
         parent::__construct($tokenStorage);
     }
@@ -271,7 +274,10 @@ class CustomerUserMutation extends BaseTokenMutation
 
         $this->checkCustomerUserCanBeDeleted($customerUser, $currentUser);
 
+        $customerUserEmail = $currentUser->getEmail();
+
         $this->customerUserFacade->delete($customerUser->getId());
+        $this->watchdogFacade->deleteByEmail($customerUserEmail);
 
         return true;
     }
