@@ -7,7 +7,7 @@ MainVariantDecorator:
         fields:
             variantsCount:
                 type: "Int!"
-                description: "Number of sellable variants"
+                description: "Number of visible variants"
             variants:
                 type: '[Variant!]!'
         interfaces:
