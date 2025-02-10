@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Shopsys\FrontendApiBundle\Model\Complaint\Exception;
+namespace Shopsys\FrontendApiBundle\Model\Mutation\PersonalData\Exception;
 
 use Shopsys\FrontendApiBundle\Model\Error\EntityNotFoundUserError;
 use Shopsys\FrontendApiBundle\Model\Error\UserErrorWithCodeInterface;
 
-class ComplaintNotFoundUserError extends EntityNotFoundUserError implements UserErrorWithCodeInterface
+class InvalidPersonalDataRequestTypeUserError extends EntityNotFoundUserError implements UserErrorWithCodeInterface
 {
-    protected const string CODE = 'complaint-not-found';
+    protected const CODE = 'personal-data-request-type-invalid';
 
     /**
      * {@inheritdoc}
